@@ -1,4 +1,5 @@
 import { Practice1 } from "./practices/Practice1";
+import { Practice2 } from "./practices/Practice2";
 import "./styles.css";
 
 export default function App() {
@@ -6,6 +7,7 @@ export default function App() {
     <div className="App">
       <h1>Hello CodeSandbox</h1>
       <Practice1 />
+      <Practice2 />
     </div>
   );
 }
