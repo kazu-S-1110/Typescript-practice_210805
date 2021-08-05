@@ -3,7 +3,7 @@
         "./src/**/*"
     ],
     "compilerOptions": {
-        "strict": true,
+        // "strict": true,
         // "noImplicitAny": false, これを書くと暗黙的anyを回避できる。
         "esModuleInterop": true,
         "lib": [
