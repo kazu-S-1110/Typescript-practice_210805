@@ -1,26 +1,10 @@
 import "./styles.css";
-import axios from "axios";
-import { useState } from "react";
-import { Todo } from "./Todo";
-import { TodoType } from "./types/todo";
-import { Text } from "./Text";
-// import { UserProfile } from "./UserProfile";
 import { UserCard } from "./components/UserCard";
-import { User } from "./types/api/user";
-import { UserProfile } from "./types/userProfiles";
+import { useAllUsers } from "./hooks/useAllUsers";
 
 export default function App() {
-  // const [todos, setTodos] = useState<Array<TodoType>>([]); //stateに対しての型指定はhooksの後ろに書く。
-
-  // const User: UserProfile = {
-  //   id: 1,
-  //   name: "puppy",
-  //   email: "test@test.com",
-  //   address: "Address"
-  //   // hobbies: ["game", "programming"]
-  // };
-  const onClickFetchData = () => {};
-
+  const { getUsers, userProfiles, loading, error } = useAllUsers();
+  const onClickFetchData = () => getUsers();
   return (
     <div className="App">
       <button onClick={onClickFetchData}>Fetch</button>
