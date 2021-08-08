@@ -12,14 +12,18 @@ import { UserProfile } from "./types/userProfiles";
 export default function App() {
   // const [todos, setTodos] = useState<Array<TodoType>>([]); //stateに対しての型指定はhooksの後ろに書く。
   const [userProfiles, setUserProfiles] = useState<Array<UserProfile>>([]);
-  const User: UserProfile = {
-    id: 1,
-    name: "puppy",
-    email: "test@test.com",
-    address: "Address"
-    // hobbies: ["game", "programming"]
-  };
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  // const User: UserProfile = {
+  //   id: 1,
+  //   name: "puppy",
+  //   email: "test@test.com",
+  //   address: "Address"
+  //   // hobbies: ["game", "programming"]
+  // };
   const onClickFetchData = () => {
+    setLoading(true);
+    setError(false);
     axios
       .get<Array<User>>("https://jsonplaceholder.typicode.com/users")
       .then((res) => {
@@ -30,17 +34,28 @@ export default function App() {
           address: `${user.address.city}${user.address.suite}${user.address.street}`
         }));
         setUserProfiles(data);
-      });
+      })
+      .catch(() => setError(true))
+      .finally(() => setLoading(false));
   };
 
   return (
     <div className="App">
-      {userProfiles.map((user) => (
-        <UserCard user={user} />
-      ))}
+      <button onClick={onClickFetchData}>Fetch</button>
+      <br />
+      {error ? (
+        <p style={{ color: "red" }}>Failed fetching data</p>
+      ) : loading ? (
+        <p>Loading</p>
+      ) : (
+        <>
+          {userProfiles.map((user) => (
+            <UserCard user={user} />
+          ))}
+        </>
+      )}
 
       {/* <UserProfile user={user} /> */}
-      <button onClick={onClickFetchData}>Fetch</button>
       {/* <Text color="red" fontSize="30px" /> */}
       {/* {todos.map((todo) => (
         <Todo
